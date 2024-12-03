@@ -13,20 +13,22 @@
  * 
 */
 
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
 
-/**
- * Define Global Variables
- * 
-*/
-
+//get a reference for all element with attribute section.
 let sections = document.querySelectorAll("section");
+// get access to menu element
 let menu = document.querySelector("#navbar__list");
 
-function createNavbar(){
+
+
+
+/**
+ * Add index for each section in the page into the menu.
+ * @param {element} sections - sections ref.
+ * @param {element} menu - menu ref.
+ * @returns {void}
+ */
+function createNavbar(sections, menu){
     for (let i=0;i<sections.length;i++){
         
         // Get the name of the section
@@ -44,6 +46,12 @@ function createNavbar(){
     
 }
 
+
+/**
+ * Check if the element within the view port.
+ * @param {Element} element - Element to check.
+ * @returns {boolean} - Exist or not.
+ */
 function checkIfElementInVP(element){
 
     vp = element.getBoundingClientRect();
@@ -54,6 +62,13 @@ function checkIfElementInVP(element){
     return false;
 }
 
+
+
+
+/**
+ * Set active class property for section in the view port .
+ * @returns {void}
+ */
 function render(){
     for(let i=0;i<sections.length;i++){
         if(checkIfElementInVP(sections[i]) && !sections[i].classList.contains('your-active-class')){
@@ -66,21 +81,16 @@ function render(){
             sections[i].classList.remove('your-active-class');
         }
 
-
-
     }
 }
 
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+
+
 
 // build the nav
-createNavbar();
-
+createNavbar(sections, menu);
+// Add listener for screen scrolling.
 document.addEventListener("scroll",render);
 
 
