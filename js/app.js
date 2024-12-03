@@ -23,13 +23,53 @@
  * 
 */
 
+let sections = document.querySelectorAll("section");
+let menu = document.querySelector("#navbar__list");
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+function createNavbar(){
+    for (let i=0;i<sections.length;i++){
+        
+        // Get the name of the section
+        indexName=sections[i].getAttribute('data-nav');
+        // Get the id of the index for scrolling.
+        indexLink=sections[i].getAttribute("id");
+        
 
+        // Create Index Element
+        indexItem= document.createElement('li');
+        indexItem.innerHTML = `<a class="menu__link"  href="#${indexLink}">${indexName}</a>`;
+        // Add index using append child function
+        menu.appendChild(indexItem);
+    }
+    
+}
+
+function checkIfElementInVP(element){
+
+    vp = element.getBoundingClientRect();
+    if (vp.top >= 0 && vp.left >= 0 && vp.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    vp.right <= (window.innerWidth || document.documentElement.clientWidth)){
+        return true;
+    }
+    return false;
+}
+
+function render(){
+    for(let i=0;i<sections.length;i++){
+        if(checkIfElementInVP(sections[i]) && !sections[i].classList.contains('your-active-class')){
+            sections[i].classList.add('your-active-class');
+        }
+        else if (checkIfElementInVP(sections[i]) && sections[i].classList.contains('your-active-class')){
+            continue;
+        }
+        else{
+            sections[i].classList.remove('your-active-class');
+        }
+
+
+
+    }
+}
 
 
 /**
@@ -39,24 +79,8 @@
 */
 
 // build the nav
+createNavbar();
 
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
+document.addEventListener("scroll",render);
 
 
