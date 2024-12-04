@@ -18,6 +18,8 @@
 let sections = document.querySelectorAll("section");
 // get access to menu element
 let menu = document.querySelector("#navbar__list");
+//sections index List.
+let indexList;
 
 
 
@@ -73,12 +75,14 @@ function render(){
     for(let i=0;i<sections.length;i++){
         if(checkIfElementInVP(sections[i]) && !sections[i].classList.contains('your-active-class')){
             sections[i].classList.add('your-active-class');
+            indexList[i].classList.add('activeIndex');
         }
         else if (checkIfElementInVP(sections[i]) && sections[i].classList.contains('your-active-class')){
             continue;
         }
         else{
             sections[i].classList.remove('your-active-class');
+            indexList[i].classList.remove('activeIndex');
         }
 
     }
@@ -90,6 +94,8 @@ function render(){
 
 // build the nav
 createNavbar(sections, menu);
+indexList=document.querySelectorAll("a");
+
 // Add listener for screen scrolling.
 document.addEventListener("scroll",render);
 
